@@ -1,0 +1,55 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build macOS
+        run: |
+          cd accounting-book-mac
+          npm install
+          npm run build
+          npx electron-builder --mac --arm64 --dir
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: accounting-book-mac
+          path: accounting-book-mac/release/mac-arm64/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Windows
+        run: |
+          cd accounting-book-win
+          npm install
+          npm run build
+          npx electron-builder --win --x64 --dir
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: accounting-book-win
+          path: accounting-book-win/release/win/
