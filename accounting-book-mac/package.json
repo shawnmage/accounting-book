@@ -50,7 +50,7 @@
       "category": "public.app-category.finance",
       "target": [
         {
-          "target": "dmg",
+          "target": "dir",
           "arch": ["arm64"]
         }
       ],
@@ -64,8 +64,6 @@
         }
       ],
       "icon": "build/icon.ico"
-    },
-    "electronDist": "/Users/shawnmage/.openclaw/workspace/electron-v35",
-    "electronVersion": "35.0.0"
+    }
   }
 }
